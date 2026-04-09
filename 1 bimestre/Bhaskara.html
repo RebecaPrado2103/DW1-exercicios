@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhaskara</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #d2f0ff;
+    text-align: center;
+    margin-top: 50px;
+}
+
+h1 {
+    color: #3a044c;
+}
+
+input {
+    margin: 5px;
+    padding: 8px;
+    font-size: 16px;
+    }
+
+#Calcular {
+    background-color: #cc00ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin-top: 10px;
+}
+#Calcular:hover {
+    background-color: #fc34cd;
+}
+
+span {
+    font-weight: bold;
+    color: #222;
+}
+    </style>
+</head>
+<body>
+    <h1>Bhaskara</h1>
+    <br><br>
+    <label for="inputA">A</label>
+    <input type="text" name="inputA" id="inputA">
+    <br>
+    <label for="inputB">B</label>
+    <input type="text" name="inputB" id="inputB">
+    <br>
+    <label for="inputC">C</label>
+    <input type="text" name="inputC" id="inputC">
+    <br>
+    <input type="button" value="Calcular" id="Calcular" onclick="calcular()">
+    <br><br>
+    <label for="x1">x1 =</label>
+    <span id="x1">...</span>
+    <br>
+    <label for="x2">x2 =</label>
+    <span id="x2">...</span>
+
+    <script>
+        function calcular(){
+            let a = parseFloat(document.getElementById("inputA").value);
+            let b = parseFloat(document.getElementById("inputB").value);
+            let c = parseFloat(document.getElementById("inputC").value);
+
+            if(isNaN(a&&b&&c)){
+                alert("As variáveis precisam ser um número.")
+            }
+            
+            let d = b**2-4*a*c;
+            
+            let X1 = (-b+(d**(1/2)))/2;
+            let X2 = (-b-(d**(1/2)))/2;
+
+            document.getElementById("x1").innerHTML = X1;
+            document.getElementById("x2").innerHTML = X2;
+        }
+    </script>
+</body>
+</html>

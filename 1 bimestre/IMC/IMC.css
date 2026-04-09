@@ -1,0 +1,107 @@
+:root {
+    --rosa: #f96db3;
+    --rosa-claro: #ffa5f4;
+    --branco: #ffffff;
+    --beje: #eae1b6;
+    --rosa-escuro: #ff00b3;
+}
+
+#labelDoInputPeso {
+    color: var(--rosa-escuro);
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--branco);
+    margin: 0;
+    padding: 0;
+    background-color: #fdb5d9;
+}
+
+header {
+    background-color: var(--rosa);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-weight: bold;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+section {
+    background: var(--beje);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+h1 {
+    text-align: center;
+    color: var(--rosa);
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: 0.3s;
+}
+
+input[type="number"]:focus {
+    background-color: var(--rosa-claro);
+    border-color: var(--rosa);
+}
+
+button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: var(--rosa);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #fe0087;
+}
+
+.resultado {
+    margin-top: 15px;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+}
+
+footer {
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--beje);
+    color: black;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+footer.erro {
+    background-color: var(--rosa-escuro);
+    color: white;
+}

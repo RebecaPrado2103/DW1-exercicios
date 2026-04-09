@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Placar Esportivo</title>
+  <link rel="stylesheet" href="Placar.css">
+</head>
+<body>
+
+<h1>PLACAR</h1>
+
+<div class="placar">
+  <div class="time">
+    <h2>Time A</h2>
+    <p id="pontosA">0</p>
+    <p>Sets: <span id="setsA">0</span></p>
+<button onclick="addPonto('A')">+1</button>
+    <button onclick="removerPonto('A')">-1</button>
+  </div>
+
+  <div class="time">
+    <h2>Time B</h2>
+    <p id="pontosB">0</p>
+    <p>Sets: <span id="setsB">0</span></p>
+    <button onclick="addPonto('B')">+1</button>
+    <button onclick="removerPonto('B')">-1</button>
+  </div>
+</div>
+
+<button onclick="resetarTudo()">Resetar Tudo</button>
+
+<h2>Histórico</h2>
+<ul id="historico"></ul>
+
+<script src="Placar.js"></script>
+</body>
+</html>
