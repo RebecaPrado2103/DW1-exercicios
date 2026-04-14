@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estacionamento</title>
+    <link rel = "stylesheet" href = "Estacionamento2.css">
+</head>
+<body>
+
+    <header>
+        Sistema de Tarifação de Estacionamento
+    </header>
+
+    <main>
+        <section>
+            <label for="inputGrande">Veiculo grande</label>
+            <input type="checkbox" id="inputGrande">
+            <br><br>
+
+            <label for="inputFrequente">Cliente frequente</label>
+            <input type="checkbox" id="inputFrequente">
+            <br>
+
+            <label for="inputEntrada">Data e hora de entrada</label>
+            <input type="datetime-local" id="inputEntrada">
+            <br><br>
+
+            <label for="inputSaida">Data e hora de saída</label>
+            <input type="datetime-local" id="inputSaida">
+            <br><br>
+
+            <button onclick="funcaoCalcular()">Calcular Preco</button>
+            <br><br>
+
+            <div class="resposta">
+                <p><strong></strong><span id="resposta"></span></p>
+            </div>
+            </section>
+    </main>
+
+    <footer id="footer">
+        <span id="mensagem">Preencha os espaços e calcule</span>
+    </footer>
+
+    <script src="Estacionamento2.js"></script>
+</body>
+</html>
