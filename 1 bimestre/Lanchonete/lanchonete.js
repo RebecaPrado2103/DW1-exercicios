@@ -10,7 +10,6 @@ function funcaoCalcular(){
 
     let total = (22*cqb) + (27*cqd) + (29*xs) + (5*refri) + (8*r);
 
-
     if(cqb<0 || cqd<0 || xs<0 || refri<0 || r<0){
         footer.classList.add("erro");
         mensagem.innerHTML = "Os valores não podem ser negativos";
