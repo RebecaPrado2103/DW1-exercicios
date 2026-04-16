@@ -3,7 +3,7 @@
     --verde-escuro: hsl(123, 68%, 53%);
     --verde-agua: hsl(167, 93%, 54%);
     --branco: #ffffff;
-    --cinza: #e4f2df;
+    --cinza: #fefffd;
     --preto: #000000;
 }
 
@@ -11,7 +11,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #cdfcb0;
+    background-color: #e4eedd;
 }
 
 /* HEADER */
@@ -118,7 +118,7 @@ footer.erro {
 .resposta {
     margin-top: 15px;
     padding: 10px;
-    background: white;
+    background: rgb(187, 244, 187);
     border-radius: 8px;
     text-align: center;
 }
@@ -126,5 +126,5 @@ footer.erro {
 /* TEXTO RESULTADO */
 #resposta {
     font-weight: bold;
-    color: var(--verde-escuro);
+    color: var(--preto);
 }
