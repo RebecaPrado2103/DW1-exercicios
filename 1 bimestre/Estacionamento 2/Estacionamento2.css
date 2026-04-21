@@ -1,7 +1,7 @@
 :root {
-    --verde: #90f674;
-    --verde-escuro: hsl(123, 68%, 53%);
-    --verde-agua: hsl(167, 93%, 54%);
+    --bege-escuro: #706050;
+    --bege: hsl(33, 25%, 45%);
+    --marrom: hsl(36, 30%, 16%);
     --branco: #ffffff;
     --cinza: #fefffd;
     --preto: #000000;
@@ -11,12 +11,12 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #e4eedd;
+    background-image: url(Estacionamento2.jpeg);
 }
 
 /* HEADER */
 header {
-    background-color: var(--verde);
+    background-color: var(--bege-escuro);
     color: white;
     text-align: center;
     padding: 15px;
@@ -44,7 +44,7 @@ section {
 /* TÍTULO */
 h1 {
     text-align: center;
-    color: var(--verde-escuro);
+    color: var(--bege);
 }
 
 /* LABEL */
@@ -55,12 +55,12 @@ label {
 }
 
 /* INPUT NUMBER */
-input[type="number"] {
+input {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
     border-radius: 8px;
-    border: 1px solid #7af2f8;
+    border: 1px solid #000000;
     outline: none;
     transition: 0.3s;
     box-sizing: border-box;
@@ -71,12 +71,14 @@ input[type="checkbox"] {
     width: auto;
     margin-left: 5px;
     transform: scale(1.2);
+    accent-color: var(--bege-escuro);
 }
+
 
 /* FOCO */
 input[type="number"]:focus {
-    background-color: var(--verde);
-    border-color: var(--verde);
+    background-color: var(--bege-escuro);
+    border-color: var(--bege-escuro);
 }
 
 /* BOTÃO */
@@ -84,7 +86,7 @@ button {
     width: 100%;
     margin-top: 20px;
     padding: 10px;
-    background-color: var(--verde-escuro);
+    background-color: var(--bege);
     color: white;
     border: none;
     border-radius: 20px;
@@ -94,7 +96,7 @@ button {
 }
 
 button:hover {
-    background-color: #047a08;
+    background-color: #483821;
 }
 
 footer {
@@ -102,7 +104,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--verde);
+    background-color: var(--bege-escuro);
     color: black;
     font-weight: bold;
     transition: 0.3s;
@@ -111,14 +113,14 @@ footer {
 }
 
 footer.erro {
-    background-color: var(--verde-agua);
+    background-color: var(--marrom);
     color: white;
 }
 
 .resposta {
     margin-top: 15px;
     padding: 10px;
-    background: rgb(187, 244, 187);
+    background: rgb(193, 193, 193);
     border-radius: 8px;
     text-align: center;
 }
