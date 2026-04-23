@@ -38,10 +38,16 @@ body {
 }
 
 /* LINHA 4 */
-.linha4 .coluna {
+.linha4 .coluna:nth-child(1) {
     flex: 1;
     display: flex;
     flex-direction: row;
+}
+
+.linha4 .coluna:nth-child(2) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .linha4 .coluna:nth-child(1) {
@@ -53,9 +59,14 @@ body {
     flex: 1;
     height: 100%;
 }
-.linha4 .coluna .subcoluna {
+.linha4 .coluna:nth-child(1) .subcoluna {
     flex: 1;
     height: 100%;
+}
+
+.linha4 .coluna:nth-child(2) .subcoluna {
+    flex: 1;
+    width: 100%;
 }
 
 /* Cores */
@@ -112,9 +123,14 @@ body {
     background: #83fe10;
 }
 
-.linha4 .coluna:nth-child(2) {
-    background: rgb(235, 98, 213);
+.linha4 .coluna:nth-child(2) .subcoluna:nth-child(1) {
+    background: #f37ccd;
 }
+
+.linha4 .coluna:nth-child(2) .subcoluna:nth-child(2) {
+    background: #ec42bc;
+}
+
 
 /* Centralização */
 .coluna,
