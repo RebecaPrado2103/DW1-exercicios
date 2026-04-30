@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Autorização</title>
+    <link rel="stylesheet" href="formulario.css">
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Cadastro do Atleta</h1>
+            <p>Preencha os dados para verificar a elegibilidade e gerar a autorização.</p>
+        </header>
+        
+        <section>
+            <form id="formInscricao" action="autorizacao.html" method="GET">
+                <div class="campo">
+                    <label for="nome">Nome Completo:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+
+                <div class="campo dupla">
+                    <div>
+                        <label for="cpf">CPF do Atleta:</label>
+                        <input type="text" id="cpf" name="cpf" required>
+                    </div>
+                    <div>
+                        <label for="idade">Idade:</label>
+                        <input type="number" id="idade" name="idade" min="1" required>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="nomeResponsavel">Nome do responsável:</label>
+                    <input type="text" id="nomeResponsavel" name="nomeResponsavel" required>
+                </div>
+
+                <div class="campo">
+                    <label for="cidadeOrigem">Cidade de Origem:</label>
+                    <input type="text" id="cidadeOrigem" name="cidadeOrigem" required>
+                </div>
+
+                <div class="campo">
+                    <label for="cidadeDestino">Cidade de Destino:</label>
+                    <input type="text" id="cidadeDestino" name="cidadeDestino" required>
+                </div>
+
+                <div class="campo">
+                    <label for="modalidade">Modalidade:</label>
+                    <select id="modalidade" name="modalidade" required>
+                        <option value="Selecione uma opção">--Selecione uma Opção--</option>
+                        <option value="vôlei">Vôlei</option>
+                        <option value="futebol">Futebol</option>
+                        <option value="natação">Natação</option>
+                    </select>
+                </div>
+
+                <button type="submit">Gerar Documento Oficial</button>
+            </form>
+        </section>
+    </main>
+    <script src="formulario.js"></script>
+</body>
+</html>

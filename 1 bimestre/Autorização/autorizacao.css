@@ -1,0 +1,66 @@
+body { 
+    font-family: 'Times New Roman', serif; 
+    padding: 40px; 
+    background: #f0f1f1; 
+}
+
+article { 
+    border: 2px solid #333;
+    background-color: #dfe7e9; 
+    padding: 40px; 
+    max-width: 700px; 
+    margin: auto;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1); 
+}
+        
+header { 
+    text-align: center;
+    margin-bottom: 30px; 
+}
+        
+h1 { 
+    text-decoration: underline; 
+    font-size: 1.8rem; 
+}
+
+p { 
+    text-align: justify; 
+    line-height: 1.8; 
+    font-size: 1.1rem; 
+}
+
+.dado-preenchido { 
+    font-weight: bold; 
+    text-transform: uppercase; 
+}
+
+.dado-destaque { 
+    font-weight: bold; 
+    text-transform: uppercase; 
+}
+
+footer { 
+    margin-top: 60px; 
+    text-align: center; 
+}
+
+.linha { 
+    border-top: 1px solid #000; 
+    width: 250px; 
+    margin: 10px auto; 
+}
+
+button {
+    width: 20%;
+    padding: 10px;
+    background: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+button:hover {
+    background-color: #049466;
+}

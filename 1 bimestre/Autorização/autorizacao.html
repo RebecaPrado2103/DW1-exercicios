@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Autorização</title>
+    <link rel="stylesheet" href="autorizacao.css">
+</head>
+<body>
+    <article>
+        <header>
+            <h1>AUTORIZAÇÃO</h1>
+        </header>
+
+        <section id="conteudo-documento">
+            <p>
+                Segundo este documento, o(a) Sr(a). 
+                <span id="resNome" class="dado-preenchido"></span>, 
+                portador(a) do CPF <span id="resCpf" class="dado-preenchido"></span>, 
+                de <span id="resIdade" class="dado-preenchido"></span> anos de idade,
+                que tem como cidade de origem <span id="resOrigem" class="dado-preenchido"></span>,
+                está devidamente autorizado pelo responsável <span id="resResponsavel" class="dado-preenchido"></span>
+                a participar do campeonato de <span id="resModalidade" class="dado-preenchido"></span>
+                que acontecerá na cidade de <span id="resDestino" class="dado-preenchido"></span>.
+            </p>
+
+            <p>
+                E o atleta cadastrado se classifica como <span id="resCategoria" class="dado-destaque"></span>
+                segundo as carcterísticas analizadas pela Sociedade Esportiva
+            </p>
+
+            <p>
+                Qualquer possível acidente que aconteça com os(as) jogadores(as) será avisado imediatamente ao responsável,
+                e a equipe esportiva tomará todas as medidas para manter a segurança e a saúde de cada jogador(a).
+            </p>
+        </section>
+
+        <footer>
+            <div class="linha"></div>
+            <p>Assinatura do(a) responsável</p>
+        </footer>
+        
+        <div class="acoes">
+            <button onclick="voltar()">Voltar</button>
+            <button onclick="window.print()">Imprimir</button>
+        </div>
+
+    </article>
+
+    <script src="autorizacao.js"></script>
+
+</body>
+</html>
