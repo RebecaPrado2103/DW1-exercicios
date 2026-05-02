@@ -1,0 +1,26 @@
+function calcular(){
+    let a = parseFloat(document.getElementById("inputA").value);
+    let b = parseFloat(document.getElementById("inputB").value);
+    let c = parseFloat(document.getElementById("inputC").value);
+
+    let footer = document.getElementById("footer");
+    let mensagem = document.getElementById("mensagem");
+
+    if(isNaN(a&&b&&c)){
+        footer.classList.add("erro");
+        mensagem.innerHTML = "Os valores precisam ser números";
+        X1 = "-";
+        X2 = "-";
+    }else{
+        footer.classList.remove("erro");
+        mensagem.innerHTML = "Calculo realizado com sucesso";
+    }
+
+    let d = b**2-4*a*c;
+            
+    let X1 = (-b+(d**(1/2)))/2;
+    let X2 = (-b-(d**(1/2)))/2;
+
+    document.getElementById("x1").innerHTML = X1;
+    document.getElementById("x2").innerHTML = X2;
+}

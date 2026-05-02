@@ -1,60 +1,54 @@
-:root {
-    --rosa: #f96db3;
-    --rosa-claro: #ffa5f4;
-    --branco: #ffffff;
-    --beje: #eae1b6;
-    --rosa-escuro: #ff00b3;
-}
-
-#labelDoInputPeso {
-    color: var(--rosa-escuro);
+:root{
+    --azul-claro:#80cef5;
+    --azul: #229ad6;
+    --azul-escuro: #16044c;
 }
 
 body {
     font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--azul-claro);
     margin: 0;
     padding: 0;
-    background-color: #fdb5d9;
 }
 
-header {
-    background-color: var(--rosa);
+header{
+    background-color:var(--azul);
     color: white;
     text-align: center;
     padding: 15px;
     font-weight: bold;
 }
 
-main {
+main{
     display: flex;
     justify-content: center;
     align-items: center;
     height: 80vh;
 }
 
-section {
-    background: var(--beje);
+section{
+    background-color:rgb(209, 226, 235);
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     width: 300px;
 }
-
+    
 h1 {
     text-align: center;
-    color: var(--rosa);
+    color: var(azul-escuro);
 }
 
-label {
+label{
     display: block;
     margin-top: 10px;
     font-weight: bold;
 }
-
+    
 input[type="number"] {
     width: 100%;
-    padding: 10px;
     margin-top: 5px;
+    padding: 10px;
     border-radius: 8px;
     border: 1px solid #ccc;
     outline: none;
@@ -62,15 +56,15 @@ input[type="number"] {
 }
 
 input[type="number"]:focus {
-    background-color: var(--rosa-claro);
-    border-color: var(--rosa);
+    background-color: #addcf3;
+    border-color: var(--azul-escuro);
 }
 
-button {
+button{
     width: 100%;
     margin-top: 15px;
     padding: 10px;
-    background-color: var(--rosa);
+    background-color: var(--azul);
     color: white;
     border: none;
     border-radius: 8px;
@@ -78,29 +72,30 @@ button {
     font-weight: bold;
 }
 
-button:hover {
-    background-color: #fe0087;
+button:hover{
+    background-color:rgb(124, 157, 236);
 }
 
-.resultado {
+.resultado{
     margin-top: 15px;
     padding: 10px;
-    background: white;
+    background-color: white;
     border-radius: 8px;
 }
 
-footer {
+footer{
     height: 10vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--beje);
+    background-color: #b2dbe7;
     color: black;
     font-weight: bold;
     transition: 0.3s;
 }
 
-footer.erro {
-    background-color: var(--rosa-escuro);
+footer.erro{
+    background-color: #2d089a;
     color: white;
 }
+    

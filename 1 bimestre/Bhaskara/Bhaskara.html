@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhaskara</title>
+    <link rel="stylesheet" href="Bhaskara.css">
+</head>
+
+<body>
+    <header>
+            Site para calcular bhaskara
+    </header>
+      
+    <main>
+        <section>
+            <h1>Bhaskara</h1>
+            
+            <label for="inputA">A</label>
+            <input type="number" name="inputA" id="inputA">
+            
+            <label for="inputB">B</label>
+            <input type="number" name="inputB" id="inputB">
+            
+            <label for="inputC">C</label>
+            <input type="number" name="inputC" id="inputC">
+            
+           <button onclick="calcular()">Calcular</button>
+
+           <div class="resultado">
+            <p><strong>x1 :</strong><span id="x1"></span></p>
+            <p><strong>x2 :</strong><span id="x2"></span></p>
+           </div>            
+        </section>
+    </main>
+
+    <footer id="footer">
+        <span id="mensagem">Preencha os espaços e calcule</span>
+    </footer>
+
+    <script src="Bhaskara.js"></script>
+</body>
+</html>
