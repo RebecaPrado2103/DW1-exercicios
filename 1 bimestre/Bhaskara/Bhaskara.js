@@ -8,12 +8,12 @@ function calcular(){
 
     if(isNaN(a&&b&&c)){
         footer.classList.add("erro");
-        mensagem.innerHTML = "Os valores precisam ser números";
+        mensagem.innerHTML = "Os espaços precisam ser preenchidos";
         X1 = "-";
         X2 = "-";
     }else{
         footer.classList.remove("erro");
-        mensagem.innerHTML = "Calculo realizado com sucesso";
+        mensagem.innerHTML = "Os espaços precisam ser preenchidos";
     }
 
     let d = b**2-4*a*c;
