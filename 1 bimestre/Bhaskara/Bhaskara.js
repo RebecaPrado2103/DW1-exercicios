@@ -21,6 +21,11 @@ function calcular(){
     let X1 = (-b+(d**(1/2)))/2;
     let X2 = (-b-(d**(1/2)))/2;
 
+    if(isNaN(X1) || isNaN(X2)){
+        X1 = "O delta não possui raiz quadrada. ∆ = " + d;
+        X2 = "O delta não possui raiz quadrada. ∆ = " + d;
+    }
+
     document.getElementById("x1").innerHTML = X1;
     document.getElementById("x2").innerHTML = X2;
 }
