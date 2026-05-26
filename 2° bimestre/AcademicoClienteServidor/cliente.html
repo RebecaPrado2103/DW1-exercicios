@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Enviar Imagem e Mensagens</title>
+    <link rel="stylesheet" href="cliente.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- <h1>Configurações de Conexão</h1> -->
+        <!-- <label for="enderecoServidorInput">Endereço do Servidor:</label>
+        <input type="text" id="enderecoServidorInput" placeholder="Digite o endereço do servidor" value="localhost">
+        
+        <label for="inputPorta">Porta:</label>
+        <input type="text" id="inputPorta" placeholder="Digite a porta" value="3000">
+        
+        <hr> -->
+        <form id="formAluno" method="post" action="/enviar-dados" enctype="multipart/form-data">
+            <h2>Formulário com dados do aluno</h2>
+
+            <label for="inputRA">RA:</label>
+            <input type="text" id="inputRA" name="ra" placeholder="Digite o RA do aluno">
+
+            <label for="inputNome">Nome:</label>
+            <input type="text" id="inputNome" name="nome" placeholder="Digite o nome do aluno">
+
+            <div class="notas-aluno">
+                <div class="nota-item">
+                    <label for="inputNota1">1º Bim:</label>
+                    <input type="text" id="inputNota1" name="nota1" placeholder="Nota 1">
+                </div>
+                <div class="nota-item">
+                    <label for="inputNota2">2º Bim:</label>
+                    <input type="text" id="inputNota2" name="nota2" placeholder="Nota 2">
+                </div>
+                <div class="nota-item">
+                    <label for="inputNota3">3º Bim:</label>
+                    <input type="text" id="inputNota3" name="nota3" placeholder="Nota 3">
+                </div>
+                <div class="nota-item">
+                    <label for="inputNota4">4º Bim:</label>
+                    <input type="text" id="inputNota4" name="nota4" placeholder="Nota 4">
+                </div>
+            </div>
+
+            <label for="inputImagem">Selecione a Foto do Aluno:</label>
+            <input type="file" id="inputImagem" name="foto" accept="image/*" onchange="mostrarPreview(event)">
+
+            <div class="preview-container">
+                <img id="previewImagem" alt="Preview da Foto do Aluno">
+            </div>
+
+            <button type="button" onclick="enviarDadosAluno()">Enviar Dados do Aluno</button>
+        </form>
+
+        <h3>Resposta do servidor</h3>
+        <div id="respostaImagem" class="resposta">Nenhum dado enviado ainda.</div>
+    </div>
+
+    <script>
+        // Função que lê o arquivo local e exibe na tela antes/depois do upload
+        function mostrarPreview(event) {
+            const input = event.target;
+            const preview = document.getElementById('previewImagem');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                // Quando o navegador terminar de processar a imagem localmente, define o src
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block'; // Torna a imagem visível
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.src = '';
+                preview.style.display = 'none';
+            }
+        }
+
+        // --- FUNÇÃO PARA ENVIAR DADOS COMPLETOS DO ALUNO ---
+        async function enviarDadosAluno() {
+            const enderecoServidor = 'localhost';
+            const porta = '3000';
+            const respostaDiv = document.getElementById("respostaImagem");
+
+            // Coletando os dados do formulário
+            const ra = document.getElementById('inputRA').value;
+            const nome = document.getElementById('inputNome').value;
+            const nota1 = parseFloat(document.getElementById('inputNota1').value);
+            const nota2 = parseFloat(document.getElementById('inputNota2').value);
+            const nota3 = parseFloat(document.getElementById('inputNota3').value);
+            const nota4 = parseFloat(document.getElementById('inputNota4').value);
+            const inputImagem = document.getElementById('inputImagem');
+
+            // Validação dos campos
+            if (!ra || !nome) {
+                respostaDiv.className = "resposta aviso";
+                respostaDiv.innerHTML = "Por favor, preencha o RA e o Nome do aluno!";
+                return;
+            }
+
+            if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3) || isNaN(nota4)) {
+                respostaDiv.className = "resposta aviso";
+                respostaDiv.innerHTML = "Por favor, insira valores numéricos válidos para todas as notas bimestrais!";
+                return;
+            }
+
+            // Preparando os dados para enviar
+            // o formData é uma estrutura que facilita o envio de dados, incluindo arquivos, em requisições HTTP POST
+            // analogia, formData é uma mala onde podemos colocar vários itens (dados do aluno e a foto) e enviar tudo de uma vez para o servidor
+            const formData = new FormData();
+            
+            formData.append('ra', ra);
+            formData.append('nome', nome);
+            formData.append('nota1', nota1);
+            formData.append('nota2', nota2);
+            formData.append('nota3', nota3);
+            formData.append('nota4', nota4);
+
+            if (inputImagem.files.length > 0) { // Verifica se um arquivo de imagem foi selecionado
+                formData.append('foto', inputImagem.files[0]);
+            }
+
+            try {
+                respostaDiv.className = "resposta";
+                respostaDiv.innerHTML = "Enviando dados do aluno...";
+
+                const response = await fetch(`http://${enderecoServidor}:${porta}/enviar-dados-aluno`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Falha na resposta do servidor');
+                }
+
+                const data = await response.json();
+
+                // Define a classe de sucesso (Verde) e atualiza o texto permanentemente
+                respostaDiv.className = "resposta sucesso";
+                respostaDiv.innerHTML = `<b>${data.mensagem}</b><br>Aluno: ${nome} (RA: ${ra})<br>Notas: ${nota1}, ${nota2}, ${nota3}, ${nota4}<br>Média: ${((nota1 + nota2 + nota3 + nota4) / 4).toFixed(2)}<br>${data.nomeArquivo ? 'Foto salva como: ' + data.nomeArquivo : 'Nenhuma foto enviada'}`;
+
+            
+            } catch (error) {
+                console.error('Erro:', error);
+                // Define a classe de erro (Vermelho)
+                respostaDiv.className = "resposta erro";
+                respostaDiv.innerHTML = "Erro de comunicação: Não foi possível salvar os dados do aluno no servidor.";
+            }
+        }
+    </script>
+</body>
+
+</html>
