@@ -22,21 +22,18 @@ app.post('/enviar-mensagem', (req, res) => {
 
     //modo tradicional: capturar os dados do corpo da requisição (req.body) e armazená-los em variáveis separadas para uso posterior.
 
-    const mensagem = req.body.mensagem;
     const peca = req.body.peca
 
-    console.log(`A mensagem recebida foi: ${mensagem}`);
     console.log(`A coordenada recebida foi: ${peca}`);
 
-    const estoque = ['Amortecedor', 'Filtro de Óleo', 'Pneu', 'Retrovisor', 'Motor'];
+    const estoque = ['AMORTECEDOR', 'FILTRO DE ÓLEO', 'PNEU', 'RETROVISOR', 'MOTOR'];
     let p = peca.toUpperCase();
-    let r = "";
+    let r = "Peça não encontrada no sistema";
 
     for(let i = 0; i < estoque.length; i++){
-        if(p = estoque[i].toUpperCase()){
+        if(p === estoque[i]){
             r = "Peça em estoque";
-        }else{
-            r = "Peça não encontrada no sitema";
+            break;
         }
     }
 
