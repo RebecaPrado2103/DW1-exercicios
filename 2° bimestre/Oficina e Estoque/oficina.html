@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Oficina e Estoque de Peças</title>
+    <link rel="stylesheet" href="oficina.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- <h1>Configurações de Conexão</h1> -->
+        <!-- <label for="enderecoServidorInput">Endereço do Servidor:</label>
+        <input type="text" id="enderecoServidorInput" placeholder="Digite o endereço do servidor" value="localhost">
+        
+        <label for="inputPorta">Porta:</label>
+        <input type="text" id="inputPorta" placeholder="Digite a porta" value="3000">
+        
+        <hr> -->
+            <h2>Oficina e Estoque de Peças</h2>
+
+            <label for="inputPeca">Nome da Peça:</label>
+            <input type="text" id="inputPeca" name="peca" placeholder="Digite o nome de uma peça">
+
+            <button onclick="enviarMensagem()">Enviar</button>
+            <br>
+            <br>
+            <h3> Resposta do servidor</h3>
+            <div id="resposta">.....</div>
+
+    <script>
+        async function enviarMensagem() {
+            const enderecoServidor = 'localhost';
+            const porta = '3000';
+
+            // Coletando os dados do formulário
+            const peca = document.getElementById('inputPeca').value;
+            const resposta = document.getElementById('resposta');
+
+            // Validação dos campos
+            if (!peca) {
+                resposta.className = "resposta aviso";
+                resposta.innerHTML = "Por favor, preencha o nome da peça";
+                return;
+            }
+
+           try {
+                const response = await fetch(`http://${enderecoServidor}:${porta}/enviar-mensagem`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(peca)
+                });
+                //quando retornar a resposta do servidor, aguarde e processe a resposta
+                const data = await response.text(); // ESPERE e receba a resposta como texto
+
+                const {resp} = JSON.parse(data); // ANALISE a resposta JSON para extrair o resultado
+
+                
+                
+                document.getElementById("resposta").innerHTML = resp;
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro na comunicação com o servidor');
+            }
+        }
+    </script>
+</body>
+
+</html>

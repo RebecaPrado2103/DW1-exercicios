@@ -100,7 +100,7 @@ app.post('/enviar-dados-aluno', upload.single('foto'), function (req, res) {
         let classificacao = '';
         if (imc < 16) {
             classificacao = 'Magreza grave';
-        } else if (imc >= 16.9 || imc <= 16.9) {
+        } else if (imc <= 16.9) {
             classificacao = 'Magreza moderada';
         } else if (imc <= 18.4) {
             classificacao = 'Magreza leve';
@@ -112,7 +112,7 @@ app.post('/enviar-dados-aluno', upload.single('foto'), function (req, res) {
             classificacao = 'Obesidade grau I';
         } else if (imc <= 39.9) {
             classificacao = 'Obesidade grau II';
-        } else if (imc >= 40) {
+        } else {
             classificacao = 'Obesidade grau III';
         }
 
