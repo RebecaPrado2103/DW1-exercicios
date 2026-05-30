@@ -96,21 +96,21 @@ app.post('/enviar-dados-aluno', upload.single('foto'), function (req, res) {
                 erro: 'O peso e a altura devem ser numéricos.'
             });
         }
-        const imc = (peso) / (altura*altura);
+        const imc = ((peso) / (altura**2));
         let classificacao = '';
         if (imc < 16) {
             classificacao = 'Magreza grave';
-        } else if (imc < 17) {
+        } else if (imc >= 16.9 || imc <= 16.9) {
             classificacao = 'Magreza moderada';
-        } else if (imc < 18.5) {
+        } else if (imc <= 18.4) {
             classificacao = 'Magreza leve';
-        } else if (imc < 25) {
+        } else if (imc <= 24.9) {
             classificacao = 'Saudável';
-        } else if (imc < 30) {
+        } else if (imc <= 29.9) {
             classificacao = 'Sobrepeso';
-        } else if (imc < 35) {
+        } else if (imc <= 34.9) {
             classificacao = 'Obesidade grau I';
-        } else if (imc < 40) {
+        } else if (imc <= 39.9) {
             classificacao = 'Obesidade grau II';
         } else if (imc >= 40) {
             classificacao = 'Obesidade grau III';
