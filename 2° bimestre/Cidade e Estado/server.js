@@ -40,58 +40,9 @@ app.post('/api/mensagens', async (req, res) => {
         console.log(`Mensagem recebida: ${mensagemRecebida} - ${dataHora}`);
 
 
-        // REGRA 3: Se for "situacao" - consulta o estoque e retorna o que precisa ser reposto
-        if (mensagemRecebida === "situacao") {
-            try {
-                // Consulta o banco de dados
-                const query = 'SELECT * FROM public.produto';
-                const result = await pool.query(query);
-
-                // Aplica a regra de negócio (calcula o que precisa ser reposto)
-                let reposicao = {};
-
-                result.rows.forEach(produto => {
-                    if (produto.quantidade_produto < produto.quantidade_minima_produto) {
-                        const quantidadeParaPedir = produto.quantidade_maxima_produto - produto.quantidade_produto;
-
-                        // Formata o nome para minúsculo
-                        let nomeFormatado = produto.nome_produto.toLowerCase();
-
-                        reposicao[nomeFormatado] = quantidadeParaPedir;
-                    }
-                });
-
-                // Prepara uma mensagem amigável para mostrar no frontend
-                let mensagemResposta = "";
-                const itens = Object.entries(reposicao);
-
-                if (itens.length === 0) {
-                    mensagemResposta = "Tudo ok! Nenhum item precisa ser reposto no momento.";
-                } else {
-                    mensagemResposta = "Precisamos repor:\n";
-                    itens.forEach(([item, quantidade]) => {
-                        mensagemResposta += `- ${item}: ${quantidade} unidades\n`;
-                    });
-                }
-
-                return res.status(200).json({
-                    status: "sucesso",
-                    mensagem: mensagemResposta,
-                    dados_reposicao: reposicao  // Dados estruturados caso queira usar
-                });
-
-            } catch (dbError) {
-                console.error('Erro no banco de dados:', dbError);
-                return res.status(500).json({
-                    status: "erro",
-                    mensagem: 'Erro ao consultar situação do estoque'
-                });
-            }
-        }
-
 
         // REGRA 1: Se for "cidades" - lista todas as cidades cadastradas
-        else if (mensagemRecebida === "cidades") {
+         if (mensagemRecebida === "cidades") {
             try {
                 // Consulta o banco de dados
                 const query = `SELECT nome_cidade FROM cidade`;
@@ -150,25 +101,28 @@ app.post('/api/mensagens', async (req, res) => {
         }
 
          // REGRA 3: Se for o nome de alguma cidade cadastrada - mostra o id da cidade e o nome da cidade
-        else if (mensagemRecebida === "listar") {
+        else {
             try {
-                // Consulta o banco de dados
-                const query = `SELECT nome_cidade, nome_estado FROM cidade C, estado E 
-                WHERE C.sigla_estado = E.sigla_estado`;
+                const query = "SELECT id_cidade, nome_cidade FROM cidade WHERE UPPER(nome_cidade) = UPPER('" + mensagemRecebida + "')";
                 const result = await pool.query(query);
 
-                // Aplica a regra de negócio (calcula o que precisa ser reposto)
-                let mensagemResposta = "Cidades e seus repectivos estados: \n\n"
+                if (result.rows.length > 0) {
+                    return res.status(200).json({
+                        status: "sucesso",
+                        mensagem:
+                            `id: ${result.rows[0].id_cidade}
+                            Cidade: ${result.rows[0].nome_cidade}`
+                    });
 
-                result.rows.forEach(cidade=> {
-                    mensagemResposta +=
-                    `-${cidade.nome_cidade} ---→ ${cidade.nome_estado}\n`
-                });
+                } else {
 
-                return res.status(200).json({
-                    status: "sucesso",
-                    mensagem: mensagemResposta
-                });
+                    return res.status(200).json({
+                        status: "sucesso",
+                        mensagem: "mensagem não entendida"
+                    });
+
+                }
+
 
             } catch (dbError) {
                 console.error('Erro no banco de dados:', dbError);
@@ -177,14 +131,6 @@ app.post('/api/mensagens', async (req, res) => {
                     mensagem: 'Erro ao consultar situação do estoque'
                 });
             }
-        }
-
-        // REGRA 4: Qualquer outra palavra
-        else {
-            return res.status(200).json({
-                status: "sucesso",
-                mensagem: "mensagem não entendida"
-            });
         }
 
     } catch (error) {
