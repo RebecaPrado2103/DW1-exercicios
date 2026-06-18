@@ -89,53 +89,8 @@ app.post('/api/mensagens', async (req, res) => {
             }
         }
 
-        // REGRA 4: Se for "paes" - consulta o estoque e retorna a quantidade de paes no estoque
-        else if (mensagemRecebida === "pao"){
-            try{
-                const query = "SELECT quantidade_produto FROM public.produto WHERE nome_produto = 'Pão' ";
-                const result = await pool.query(query);
-                const paes = result.rows[0].quantidade_produto;
 
-                let mensagemResposta = `Temos ${paes} pães no estoque`;
-
-                return res.status(200).json({
-                    status: "sucesso",
-                    mensagem: mensagemResposta
-                });
-            
-            } catch (dbError) {
-                console.error('Erro no banco de dados:', dbError);
-                return res.status(500).json({
-                    status: "erro",
-                    mensagem: 'Erro ao consultar situação do estoque'
-                });
-            }
-        }
-
-        // REGRA 5: Se for "bolo" - consulta o estoque e retorna a quantidade de bolos no estoque
-        else if (mensagemRecebida === "bolo"){
-            try{
-                const query = "SELECT quantidade_produto FROM public.produto WHERE nome_produto = 'Bolo' ";
-                const result = await pool.query(query);
-                const bolos = result.rows[0].quantidade_produto;
-
-                let mensagemResposta = `Temos ${bolos} bolos no estoque`;
-
-                return res.status(200).json({
-                    status: "sucesso",
-                    mensagem: mensagemResposta
-                });
-            
-            } catch (dbError) {
-                console.error('Erro no banco de dados:', dbError);
-                return res.status(500).json({
-                    status: "erro",
-                    mensagem: 'Erro ao consultar situação do estoque'
-                });
-            }
-        }
-
-        // REGRA 6: Se for "minimos" - mostra a quntidade minima de produtos
+        // REGRA 1: Se for "cidades" - lista todas as cidades cadastradas
         else if (mensagemRecebida === "cidades") {
             try {
                 // Consulta o banco de dados
@@ -148,6 +103,36 @@ app.post('/api/mensagens', async (req, res) => {
                 result.rows.forEach(cidade => {
                     mensagemResposta +=
                     `-${cidade.nome_cidade}\n`
+                });
+
+                return res.status(200).json({
+                    status: "sucesso",
+                    mensagem: mensagemResposta
+                });
+
+            } catch (dbError) {
+                console.error('Erro no banco de dados:', dbError);
+                return res.status(500).json({
+                    status: "erro",
+                    mensagem: 'Erro ao consultar situação do estoque'
+                });
+            }
+        }
+
+         // REGRA 2: Se for "listar" - Lista as cidades e os nomes de seus respectivos estados
+        else if (mensagemRecebida === "listar") {
+            try {
+                // Consulta o banco de dados
+                const query = `SELECT nome_cidade, nome_estado FROM cidade C, estado E 
+                WHERE C.sigla_estado = E.sigla_estado`;
+                const result = await pool.query(query);
+
+                // Aplica a regra de negócio (calcula o que precisa ser reposto)
+                let mensagemResposta = "Cidades e seus repectivos estados: \n\n"
+
+                result.rows.forEach(cidade=> {
+                    mensagemResposta +=
+                    `-${cidade.nome_cidade} ---→ ${cidade.nome_estado}\n`
                 });
 
                 return res.status(200).json({
@@ -209,15 +194,12 @@ app.post('/api/mensagens', async (req, res) => {
 });
 
 app.listen(port, '0.0.0.0', () => {
-    console.log(`Servidorina atenta na porta ${port}`);
+    console.log(`Servidor atento na porta ${port}`);
     console.log(`Rota disponível:`);
     console.log(`  POST http://localhost:${port}/api/mensagens - Enviar Bilhetes`);
     console.log(`\nMensagens disponíveis (possíveis)`);
-    console.log(`  "vovó"     -> Resposta de saudação`);
-    console.log(`  "chegou"   -> Confirmação de chegada`);
-    console.log(`  "situacao" -> Consulta de reposição de estoque`);
-    console.log(`  "pao" -> Consulta a quantidade de paes no estoque`);
-    console.log(`  "bolo" -> Consulta a quantidade de bolos no estoque`);
-    console.log(`  "minimos" -> Consulta a quantidade minima de cada produto`);
+    console.log(`  "cidades" -> Lista todas as cidades cadastradas`);
+    console.log(`  "listar" -> Lista as cidades e o nome se seus repectivos estados`);
+    console.log(`  (nome de alguma cidade) -> Se estiver cadastrada, lista o nome da cidade e seu id`);
     console.log(`  (outras)   -> Mensagem não entendida`);
 });
