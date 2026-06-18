@@ -149,7 +149,7 @@ app.post('/api/mensagens', async (req, res) => {
             }
         }
 
-         // REGRA 6: Se for "minimos" - mostra a quntidade minima de produtos
+         // REGRA 3: Se for o nome de alguma cidade cadastrada - mostra o id da cidade e o nome da cidade
         else if (mensagemRecebida === "listar") {
             try {
                 // Consulta o banco de dados
@@ -179,7 +179,7 @@ app.post('/api/mensagens', async (req, res) => {
             }
         }
 
-        // REGRA 7: Qualquer outra palavra
+        // REGRA 4: Qualquer outra palavra
         else {
             return res.status(200).json({
                 status: "sucesso",
