@@ -7,10 +7,10 @@ bloquearAtributos(true);
 // Busca no Banco de Dados via API
 async function procurePorChavePrimaria(chave) {
     try {
-        const resposta = await fetch(`${URL_API}/carro/${chave}`);
+        const resposta = await fetch(`${URL_API}/livro/${chave}`);
         const data = await resposta.json();
         if (data.sucesso) {
-            return data.carro;
+            return data.livro;
         }
         return null;
     } catch (erro) {
@@ -21,14 +21,14 @@ async function procurePorChavePrimaria(chave) {
 
 // Procura por ID mantendo a dinâmica original de botões
 async function procure() {
-    const id_carro = document.getElementById("inputId_carro").value;
-    if (isNaN(id_carro) || !Number.isInteger(Number(id_carro)) || id_carro === "") {
+    const id_livro = document.getElementById("inputId_livro").value;
+    if (isNaN(id_livro) || !Number.isInteger(Number(id_livro)) || id_livro === "") {
         mostrarAviso("Precisa ser um número inteiro");
-        document.getElementById("inputId_carro").focus();
+        document.getElementById("inputId_livro").focus();
         return;
     }
 
-    livro = await procurePorChavePrimaria(id_carro);
+    livro = await procurePorChavePrimaria(id_livro);
     if (livro) {
         mostrarDadosCarro(livro);
         visibilidadeDosBotoes('inline', 'none', 'inline', 'inline', 'none');
@@ -45,7 +45,7 @@ function inserir() {
     visibilidadeDosBotoes('none', 'none', 'none', 'none', 'inline');
     oQueEstaFazendo = 'inserindo';
     mostrarAviso("INSERINDO - Digite os atributos e clique em salvar");
-    document.getElementById("inputNome_carro").focus();
+    document.getElementById("inputTitulo_livro").focus();
 }
 
 function alterar() {
@@ -64,35 +64,38 @@ function excluir() {
 
 // Salva as alterações realizando a chamada HTTP correta na API
 async function salvar() {
-    let id_carro = livro ? livro.id_carro : parseInt(document.getElementById("inputId_carro").value);
-    const nome_carro = document.getElementById("inputNome_carro").value;
-    const modelo_carro = document.getElementById("inputModelo_carro").value;
-    const ano = parseInt(document.getElementById("inputAno").value);
+    let id_livro = livro ? livro.id_livro : parseInt(document.getElementById("inputId_livro").value);
+    const titulo = document.getElementById("inputTitulo_livro").value;
+    const autor = document.getElementById("inputAutor").value;
+    const ano_publicacao = parseInt(document.getElementById("inputAno").value);
+    const genero = document.getElementById("inputGenero").value;
+    const paginas = parseInt(document.getElementById("inputPaginas").value);
 
-    if (!id_carro || !nome_carro || !modelo_carro || !ano) {
+
+    if (!id_livro || !titulo || !autor || !ano_publicacao || !genero || !paginas) {
         alert("Erro nos dados digitados");
         return;
     }
 
-    const dadosCarro = { id_carro, nome_carro, modelo_carro, ano };
+    const dadosLivro = { id_livro: id_livro, titulo: titulo, autor: autor, ano: ano_publicacao, genero: genero, paginas };
 
     try {
         if (oQueEstaFazendo === 'inserindo') {
-            await fetch(`${URL_API}/carro`, {
+            await fetch(`${URL_API}/livro`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(dadosCarro)
+                body: JSON.stringify(dadosLivro)
             });
             mostrarAviso("Inserido no Banco de Dados com sucesso!");
         } else if (oQueEstaFazendo === 'alterando') {
-            await fetch(`${URL_API}/carro/${id_carro}`, {
+            await fetch(`${URL_API}/livro/${id_livro}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(dadosCarro)
+                body: JSON.stringify(dadosLivro)
             });
             mostrarAviso("Alterado no Banco de Dados com sucesso!");
         } else if (oQueEstaFazendo === 'excluindo') {
-            await fetch(`${URL_API}/carro/${id_carro}`, {
+            await fetch(`${URL_API}/livro/${id_livro}`, {
                 method: 'DELETE'
             });
             mostrarAviso("Excluído do Banco de Dados!");
@@ -100,7 +103,7 @@ async function salvar() {
 
         visibilidadeDosBotoes('inline', 'none', 'none', 'none', 'none');
         limparAtributos();
-        document.getElementById("inputId_carro").value = "";
+        document.getElementById("inputId_livro").value = "";
         listar();
     } catch (erro) {
         mostrarAviso("Erro ao efetuar operação no servidor.");
@@ -110,10 +113,10 @@ async function salvar() {
 // Busca a lista atualizada do backend
 async function listar() {
     try {
-        const resposta = await fetch(`${URL_API}/carros`);
+        const resposta = await fetch(`${URL_API}/livros`);
         const data = await resposta.json();
         if (data.sucesso) {
-            document.getElementById("outputSaida").innerHTML = preparaListagem(data.carros);
+            document.getElementById("outputSaida").innerHTML = preparaListagem(data.livros);
         } else {
             document.getElementById("outputSaida").innerHTML = "Erro ao carregar dados.";
         }
@@ -126,9 +129,9 @@ function preparaListagem(vetor) {
     let texto = "";
     for (let i = 0; i < vetor.length; i++) {
         const linha = vetor[i];
-        texto += `${linha.id_carro} - ${linha.nome_carro} - ${linha.modelo_carro} - ${linha.ano}<br>`;
+        texto += `${linha.id_livro} - ${linha.titulo} - ${linha.autor} - ${linha.ano_publicacao} - ${linha.genero} - ${linha.paginas}<br>`;
     }
-    return texto || "Nenhum carro cadastrado.";
+    return texto || "Nenhum livro cadastrado.";
 }
 
 function cancelarOperacao() {
@@ -142,27 +145,34 @@ function mostrarAviso(mensagem) {
     document.getElementById("divAviso").innerHTML = mensagem;
 }
 
-function mostrarDadosCarro(carro) {
-    document.getElementById("inputId_carro").value = carro.id_carro;
-    document.getElementById("inputNome_carro").value = carro.nome_carro;
-    document.getElementById("inputModelo_carro").value = carro.modelo_carro;
-    document.getElementById("inputAno").value = carro.ano;
+function mostrarDadosCarro(livro) {
+    document.getElementById("inputId_livro").value = livro.id_livro;
+    document.getElementById("inputTitulo_livro").value = livro.titulo;
+    document.getElementById("inputAutor").value = livro.autor;
+    document.getElementById("inputAno").value = livro.ano_publicacao;
+    document.getElementById("inputGenero").value = livro.genero;
+    document.getElementById("inputPaginas").value = livro.paginas;
     bloquearAtributos(true);
 }
 
 function limparAtributos() {
     livro = null;
-    document.getElementById("inputNome_carro").value = "";
-    document.getElementById("inputModelo_carro").value = "";
+    document.getElementById("inputTitulo_livro").value = "";
+    document.getElementById("inputAutor").value = "";
     document.getElementById("inputAno").value = "";
+    document.getElementById("inputGenero").value = "";
+    document.getElementById("inputPaginas").value = "";
     bloquearAtributos(true);
 }
 
 function bloquearAtributos(soLeitura) {
-    document.getElementById("inputId_carro").readOnly = !soLeitura;
-    document.getElementById("inputNome_carro").readOnly = soLeitura;
-    document.getElementById("inputModelo_carro").readOnly = soLeitura;
+    document.getElementById("inputId_livro").readOnly = !soLeitura;
+    document.getElementById("inputTitulo_livro").readOnly = soLeitura;
+    document.getElementById("inputAutor").readOnly = soLeitura;
     document.getElementById("inputAno").readOnly = soLeitura;
+    document.getElementById("inputGenero").readOnly = soLeitura;
+    document.getElementById("inputPaginas").readOnly = soLeitura;
+
 }
 
 function visibilidadeDosBotoes(btProcure, btInserir, btAlterar, btExcluir, btSalvar) {
@@ -172,5 +182,5 @@ function visibilidadeDosBotoes(btProcure, btInserir, btAlterar, btExcluir, btSal
     document.getElementById("btExcluir").style.display = btExcluir;
     document.getElementById("btSalvar").style.display = btSalvar;
     document.getElementById("btCancelar").style.display = btSalvar;
-    document.getElementById("inputId_carro").focus();
+    document.getElementById("inputId_livro").focus();
 }
