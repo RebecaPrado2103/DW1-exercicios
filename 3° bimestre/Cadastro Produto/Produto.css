@@ -7,12 +7,12 @@
 
 /* --- Variáveis de Cores --- */
 :root {
-    --cor-primaria: #2c3e50;
-    --cor-secundaria: #3498db;
-    --cor-secundaria-hover: #2980b9;
+    --cor-primaria: #b576b8;
+    --cor-secundaria: #9334db;
+    --cor-secundaria-hover: #b929a6;
     --cor-fundo: #f8f9fa;
     --cor-texto: #333333;
-    --cor-aviso: #e74c3c;
+    --cor-aviso: #ae3ce7;
     --cor-borda: #ced4da;
     --cor-branco: #ffffff;
 }
@@ -144,7 +144,7 @@ input[type="button"]:hover {
 #divAviso {
     margin-top: 1.5rem;
     padding: 1rem;
-    background-color: #fce4e4;
+    background-color: #f8e4fc;
     color: var(--cor-aviso);
     border-left: 5px solid var(--cor-aviso);
     border-radius: 4px;
