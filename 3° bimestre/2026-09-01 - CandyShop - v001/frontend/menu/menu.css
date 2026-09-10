@@ -7,12 +7,12 @@
 
 /* --- Variáveis de Cores --- */
 :root {
-    --cor-primaria: #2c3e50;
-    --cor-secundaria: #3498db;
-    --cor-secundaria-hover: #2980b9;
-    --cor-fundo: #f8f9fa;
+    --cor-primaria: #e992bf;
+    --cor-secundaria: #db34a3;
+    --cor-secundaria-hover: #b9297f;
+    --cor-fundo: #f8eee3;
     --cor-texto: #333333;
-    --cor-borda: #ced4da;
+    --cor-borda: #daced4;
     --cor-branco: #ffffff;
 }
 
